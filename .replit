@@ -1,8 +1,14 @@
-compile = "javac -classpath .:target/dependency/* -d . $(find . -type f -name '*.java')"
-run = "java -classpath .:target/dependency/* Main"
+# Compilation and Execution Commands
+compile = "mvn clean compile"
+
+run = "mvn exec:exec -Dexec.executable=java -Dexec.args='-classpath %classpath Main'"
+
+# Entry Point for the Application
 entrypoint = "src/main/java/Main.java"
 hidden = ["**/*.class"]
+modules = ["nodejs-20"]
 
+# Language Configuration
 [packager]
 language = "java"
 
@@ -15,17 +21,20 @@ pattern = "**/*.java"
 [languages.java.languageServer]
 start = "jdt-language-server"
 
+# Unit Testing Configuration
 [unitTest]
 language = "java"
 
+# Nix Package Manager Configuration
 [nix]
 channel = "stable-22_11"
 
+# Debugger Configuration
 [debugger]
 support = true
 
 [debugger.compile]
-command = "javac -classpath .:/run_dir/junit-4.12.jar:target/dependency/* -g -d . $(find . -type f -name '*.java')"
+command = "mvn clean compile"
 
 [debugger.interactive]
 transport = "localhost:0"
@@ -58,7 +67,12 @@ type = "request"
 classPaths = ["."]
 mainClass = "Main"
 
+# Deployment Configuration
 [deployment]
-build = ["javac", "-classpath", ".:target/dependency/*", "-d", ".", "$(find . -type f -name '*.java')"]
-run = ["java", "-classpath", ".:target/dependency/*", "Main"]
+build = "mvn clean compile"
+run = "mvn exec:exec -Dexec.executable=java -Dexec.args='-classpath %classpath Main'"
 deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 3001
+externalPort = 80

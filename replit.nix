@@ -1,8 +1,13 @@
 { pkgs }: {
-    deps = [
-        pkgs.graalvm17-ce
-        pkgs.maven
-        pkgs.replitPackages.jdt-language-server
-        pkgs.replitPackages.java-debug
-    ];
+  deps = [
+    pkgs.chromium
+    pkgs.chromedriver
+    pkgs.jdk17
+    pkgs.maven
+  ];
+
+  env = {
+    CHROME_BIN = "${pkgs.chromium}/bin/chromium";
+    CHROMEDRIVER_PATH = "${pkgs.chromedriver}/bin/chromedriver";
+  };
 }
