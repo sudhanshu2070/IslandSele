@@ -29,6 +29,3 @@ app.post('/api/run', async (req, res) => {
 
 // Start the server
 app.listen(3001, () => console.log('Replit server running on port 3001'));
-
-// Exporting as Vercel-compatible handler
-module.exports = app;
