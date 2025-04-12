@@ -3,6 +3,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +17,7 @@ public class Main {
 
         // Configure Chrome to suppress logs
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
+        // options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-dev-shm-usage");
@@ -26,15 +28,23 @@ public class Main {
 
         try {
             // driver.get("https://www.google.com");
-            driver.get("https://x.com");
-            System.out.println("Page Title: " + driver.getTitle()); 
+            // driver.get("https://x.com");
+            // System.out.println("Page Title: " + driver.getTitle()); 
+            // WebElement element = driver.findElement(By.xpath("//*[@id='container']/div/div[2]"));
+            // element.click();
+
+            driver.get("https://www.bing.com");
+            WebElement searchBox = driver.findElement(By.name("q"));
+            searchBox.sendKeys("hello there");
+            searchBox.submit();
 
             /*
             to run(add the below in terminal)
             mvn compile exec:java -Dorg.slf4j.simpleLogger.defaultLogLevel=off -Dio.netty.noUnsafe=true -Dio.netty.leakDetection.level=DISABLED
             */
-        } finally {
-            driver.quit();
+        } 
+        finally {
+            // driver.quit();
         }
     }
 }
